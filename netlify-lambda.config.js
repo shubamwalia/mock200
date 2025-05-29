@@ -1,5 +1,7 @@
+const path = require('path');
+
 module.exports = {
-  config: {
-    functions: 'functions-build'
+  output: {
+    path: path.resolve(__dirname, 'functions-build')
   }
 }; 
