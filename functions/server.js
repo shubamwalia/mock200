@@ -1,6 +1,4 @@
 const express = require('express');
-const serverless = require('serverless-http');
-
 const app = express();
 
 // Middleware to handle all requests and respond with a 200 status code
@@ -8,5 +6,13 @@ app.use((req, res) => {
   res.status(200).end();
 });
 
-// Export the serverless handler
-module.exports.handler = serverless(app); 
+// If not production, start the server
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+// Export the Express app for production
+module.exports = app; 
